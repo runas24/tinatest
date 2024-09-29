@@ -1,6 +1,6 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
+// Ваша переменная для определения ветки
 const branch =
   process.env.GITHUB_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
@@ -10,10 +10,9 @@ const branch =
 export default defineConfig({
   branch,
 
-  // Get this from tina.io
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
-  // Get this from tina.io
-  token: process.env.TINA_TOKEN,
+  // Получаем clientId и token из переменных окружения
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID, // Это значение будет доступно на клиенте
+  token: process.env.TINA_TOKEN, // Это значение используется только на сервере
 
   build: {
     outputFolder: "admin",
@@ -25,7 +24,6 @@ export default defineConfig({
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
       {
@@ -48,7 +46,7 @@ export default defineConfig({
           },
         ],
         ui: {
-          // This is an DEMO router. You can remove this to fit your site
+          // Это пример маршрутизатора. Вы можете удалить его, чтобы адаптировать под свой сайт
           router: ({ document }) => `/demo/blog/${document._sys.filename}`,
         },
       },
